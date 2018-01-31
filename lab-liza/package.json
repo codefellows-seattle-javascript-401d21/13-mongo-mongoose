@@ -1,7 +1,7 @@
 {
   "name": "01-mongodb-mongoose",
   "version": "1.0.0",
-  "description": "**Author**: Liza Oh",
+  "description": "",
   "main": "index.js",
   "directories": {
     "lib": "lib"
