@@ -13,6 +13,10 @@ module.exports = function(router) {
             .then(animal => res.status(200).json(animal))
             .catch(err => errorHandler(err,res))
         }
+        return Animal.find()
+            .then(animals => animals.map(a => a._id))
+            .then(animal => res.status(200).json(animal))
+            .catch(err => errorHandler(err,res))
     })
     .post(bodyParser, (req, res) => {
         console.log('req.body',req.body);
@@ -21,9 +25,14 @@ module.exports = function(router) {
         .catch(err => errorHandler(err, res))
     })
     .put(bodyParser, (req, res) => {
+        return Animal.findByIdAndUpdate(req.params._id, req.body)
+            .then(() => res.sendStatus(204))
+            .catch(err => errorHandler(err, res))
 
     })
     .delete((req, res) => {
-
+        return Animal.findByIdAndRemove(req.params._id)
+            .then(() => res.status(204).end())
+            .catch(err => errorHandler(err,res))
     })
 }
