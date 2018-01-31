@@ -8,4 +8,4 @@ const Animal = mongoose.Schema({
     'class': { type: String}
 })
 
-module.exports = mongoose.mnodel('animals', Animal)
+module.exports = mongoose.model('animals', Animal)

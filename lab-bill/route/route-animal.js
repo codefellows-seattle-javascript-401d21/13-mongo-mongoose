@@ -5,7 +5,7 @@ const bodyParser = require('body-parser').json()
 const errorHandler = require('../lib/error-handler')
 
 module.exports = function(router) {
-    router.route('/animal/:_id')
+    router.route('/animal/:_id?')
     .get((req, res) => {
 
         if(req.params._id) {
@@ -15,6 +15,7 @@ module.exports = function(router) {
         }
     })
     .post(bodyParser, (req, res) => {
+        console.log('req.body',req.body);
         new Animal(req.body).save()
         .then(animal => res.status(201).json(animal))
         .catch(err => errorHandler(err, res))
@@ -23,6 +24,6 @@ module.exports = function(router) {
 
     })
     .delete((req, res) => {
-        
+
     })
 }

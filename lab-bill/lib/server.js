@@ -9,11 +9,12 @@ const app = express()
 const PORT = process.env.PORT
 const router = express.Router()
 const MONGODB_URI = process.env.MONGODB_URI
+console.log(MONGODB_URI)
 
 app.use(cors())
-app.use('api/v1', router)
+app.use('/api/v1', router)
 require('../route/route-animal')(router)
-app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not found.'), res))
+app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not found. From server.js'), res))
 
 const server = module.exports = {}
 server.start = () => {
