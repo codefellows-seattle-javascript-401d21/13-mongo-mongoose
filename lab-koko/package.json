@@ -44,6 +44,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "mongoose": "^5.0.2",
     "dotenv": "^4.0.0",
     "superagent": "^3.8.2"
   },

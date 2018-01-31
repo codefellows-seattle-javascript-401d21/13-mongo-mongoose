@@ -10,9 +10,9 @@ module.exports = function(err, res) {
     return res.status(404).send(`${err.name}: ${err.message}`);
   case msg.includes('Route not found'):
     return res.status(404).send(`${err.name}: ${err.message}`);
-  case msg.includes('objectid failed'):
+  case msg.includes('objectid failed'): 
     return res.status(404).send(`${err.name}: ${err.message}`);
-  case msg.includes('duplicate key'):
+  case msg.includes('duplicate key'): 
     return res.status(409).send(`${err.name}: ${err.message}`);
   default: 
     return res.status(500).send(`${err.name}: ${err.message}`);

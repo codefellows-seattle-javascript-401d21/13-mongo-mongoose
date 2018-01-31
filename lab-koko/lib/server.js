@@ -10,9 +10,9 @@ const PORT = process.env.PORT;
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
 
-app.use.apply(cors());
-app.use('api/v1/track', router);
-require('../route/route-track');
+app.use(cors());
+app.use('api/v1/book', router);
+require('../route/route-books');
 app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not found.'), res));
 
 const server = module.exports = {};
@@ -33,7 +33,9 @@ server.stop = () => {
     if(!server.isON) return reject(new Error('Server not running. Cannot sut server down'));
     server.http.close(() => {
       console.log('Shutting down server');
-
-    })
-  })
-}
+      server.db.disconnect();
+      server.isON = false;
+      return resolve(server);
+    });
+  });
+};
