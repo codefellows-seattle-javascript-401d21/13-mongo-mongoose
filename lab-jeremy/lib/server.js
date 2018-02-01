@@ -42,7 +42,6 @@ server.stop = () => {
       console.log('Shutting down server');
       mongoose.disconnect();
       server.isOn = false;
-      console.log('server shut down');
       return resolve(server);
     });
   });

@@ -15,7 +15,9 @@ module.exports = function(router) {
 
       if(req.params._id) {
         return Champ.findById(req.params._id)
-          .then(champ => res.status(200).json(champ))
+          .then(champ => {
+            champ ? res.status(200).json(champ) : errorHandler(new Error('ENOENT'), res);
+          })
           .catch(err => errorHandler(err, res));
       }
 
@@ -32,7 +34,7 @@ module.exports = function(router) {
     })
 
     .put(bodyParser, (req, res) => {
-      return Champ.findByIdAndUpdate(req.params._id, req.body)
+      return Champ.findByIdAndUpdate(req.params._id, req.body, {runValidators: true})
         .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
