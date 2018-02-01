@@ -5,27 +5,50 @@ const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler');
 const debug = require('debug')('http:route-note');
 
-
 module.exports = function(router) {
   debug('routes');
-  router.route('/image/:id?')
+  router.route('/image/:_id?')
     .get((req, res) =>{
+      debug(req.method, req.params._id);
       if (req.params._id){
-        Image.findOne('_id', req.params._id)
-          .then( img => res.status(200).json(img))
+        Image.findById(req.params._id)
+          .then( img => {
+            if (img) return res.status(200).json(img);
+            throw new Error('ENOENT: Id not found');
+          })
           .catch(err => errorHandler(err, res));
         return;
       }
+      Image.find()
+        .then(imgs => imgs.map(img => img._id))
+        .then(img_ids => res.status(200).json(img_ids))
+        .catch(err => errorHandler(err, res));
     })
+
     .post(bodyParser, (req, res) =>{
+      debug(req.method, req.body);
       new Image(req.body).save()
-        .then(img => req.status(201).json(img))
+        .then(img => res.status(201).json(img))
         .catch(err => errorHandler(err, res));
       return;
-    });
+    })
     
-    // .put()
-    // .delete();
+    .put(bodyParser, (req, res) => {
+      debug(req.method, req.body);
+      Image.findByIdAndUpdate(req.params._id, req.body)
+        .then(() => res.sendStatus(204))
+        .catch(err => errorHandler(err, res));
+    })
+   
+    .delete((req, res) => {
+      debug(req.method, req.params);
+      Image.findByIdAndRemove(req.params._id)
+        .then((img) => {
+          debug('delete img', img);
+          return res.sendStatus(204);
+        })
+        .catch(err => errorHandler(err, res));
+    });
 
 
   
