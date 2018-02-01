@@ -28,6 +28,18 @@ module.exports = (router) => {
         .then(s => res.status(201).json(s))
         .catch(err => errorHandler(err, res));
     })
-    .put()
-    .delete();
+    .put(bodyParser, (req, res) => {
+      debug(`#put: req.params._id: ${req.params._id}`);
+
+      return Student.findByIdAndUpdate(req.params._id, req.body)
+        .then(() => res.sendStatus(204))
+        .catch(err => errorHandler(err, res));
+    })
+    .delete((req, res) => {
+      debug(`#delete: req.params._id: ${req.params._id}`);
+
+      return Student.findByIdAndRemove(req.params._id)
+        .then(() => res.sendStatus(204))
+        .catch(err => errorHandler(err, res));
+    });
 };
