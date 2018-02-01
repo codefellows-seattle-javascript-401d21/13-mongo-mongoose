@@ -32,7 +32,7 @@ module.exports = function(router) {
   router.route('/mc/:_id?')
     .put(bodyParser, (req, res) => {
       return Mc.findByIdAndUpdate(req.params._id, req.body)
-        .then(mc => res.status(201).json(mc)) 
+        .then(mc => res.status(204).json(mc)) 
         .catch(err => errorHandler(err, res))
     })
 
