@@ -54,4 +54,13 @@ describe('Route-student module', function() {
       });
     });
   });
+
+  describe('Bad PUT request', () => {
+    describe('PUT /student', () => {
+      it('should respond with 404 status when no :_id is provided', () => {
+        return superagent.put(`${this.ep}/student`)
+          .catch(err => expect(err.status).toBe(404));
+      });
+    });
+  });
 });
