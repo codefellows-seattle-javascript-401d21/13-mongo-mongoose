@@ -10,14 +10,12 @@ module.exports = (router) => {
     .get((req, res) => {
       debug(`#get: _id: ${req.params._id}`);
 
-      // GET call for single student
       if (req.params._id) {
         return Student.findById(req.params._id)
           .then(s => res.status(200).json(s))
           .catch(err => errorHandler(err, res));
       }
 
-      // GET call for all students
       return Student.find({})
         .then(studentObjs => studentObjs.map(e => e._id))
         .then(students => res.status(200).json(students))
