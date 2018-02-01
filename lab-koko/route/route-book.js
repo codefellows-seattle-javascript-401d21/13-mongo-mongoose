@@ -20,7 +20,6 @@ module.exports = (router) => {
           .catch(err => errorHandler(err, res));
       }
       
-      
     })
 
     .post(bodyParser, (req, res) => {
@@ -32,10 +31,9 @@ module.exports = (router) => {
     .put(bodyParser,(req,res) => {
       debug(`${req.method}: ${req.url} `);
       return Book.findByIdAndUpdate(req.params._id, req.body) 
-        .then(() => res.sendStatus(204))
+        .then((books) => res.sendStatus(204).json(books))
         .catch(err => errorHandler(err, res));
     })
-
 
     .delete((req,res) => {
       debug(`${req.method}: ${req.url} `);

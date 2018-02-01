@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT;
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
+// const mongooseConnection = mongoose.connect(MONGODB_URI);
 
 app.use(cors());
 app.use('/api/v1', router);
@@ -35,7 +36,7 @@ server.stop = () => {
 
     server.http.close(() => {
       console.log('Shutting down server');
-      server.db.disconnect();
+      mongoose.disconnect();
       server.isOn = false;
       return resolve(server);
     });
