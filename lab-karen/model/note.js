@@ -1,16 +1,12 @@
 'use strict';
 
-const uuid = require('uuid/v4');
-const debug = require('debug')('http:note');
+const mongoose = require('mongoose');
 
-module.exports = function Note(title, content) {
-  debug('note');
-  return new Promise((resolve, reject) => {
-    if(!title || !content) return reject(new Error('Validation Error. Cannot create Note. Title and Content required.'));
-    this._id = uuid();
-    this.title = title;
-    this.content = content;
+const Book = mongoose.Schema({
+  'title': {  type: String, require: true },
+  'author': { type: String},
+  'year': { type: Number},
+  'category': { type: String},
+}, {timestamps: true});
 
-    return resolve(this);
-  });
-};
+module.exports = mongoose.model('book', Book);

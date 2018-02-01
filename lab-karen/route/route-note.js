@@ -18,6 +18,7 @@ module.exports = function(router) {
       }
 
       return Note.find()
+        .then(note => note.map(note => note._id))
         .then(note => res.status(200).json(note))
         .catch(err => errorHandler(err, res));
 
@@ -30,7 +31,8 @@ module.exports = function(router) {
     })
 
     .put(bodyParser, (req, res) =>{
-      return Note.findByIdAndUpdate(req.params._id)
+      let updateNote = req.body;
+      return Note.findByIdAndUpdate(req.params._id, updateNote)
         .then(note => res.status(200).json(note))
         .catch(err => errorHandler(err, res));
     })
@@ -39,5 +41,5 @@ module.exports = function(router) {
       return Note.findByIdAndRemove(req.params._id)
         .then(note => res.status(200).json(note))
         .catch(err => errorHandler(err, res));
-    })
+    });
 };
