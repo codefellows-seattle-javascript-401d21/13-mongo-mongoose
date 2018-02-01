@@ -17,6 +17,7 @@ describe('POST /api/v1/cat', function() {
         .then(res => this.response = res);
     });
 
+
     it('should respond with a status of 201', () => {
       expect(this.response.status).toBe(201);
     });
@@ -42,4 +43,9 @@ describe('POST /api/v1/cat', function() {
         .catch(err => expect(err.status).toBe(400));
     });
   });
+  
+  afterAll(() => {
+    return superagent.delete(':4000/api/v1/cat');
+  });
+
 });

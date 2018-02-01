@@ -103,4 +103,8 @@ describe('GET /api/v1/cat', function () {
       expect(this.res.status).toBe(404);
     });
   });
+
+  afterAll(() => {
+    return superagent.delete(':4000/api/v1/cat');
+  });
 });

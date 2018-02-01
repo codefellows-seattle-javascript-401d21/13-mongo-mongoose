@@ -52,4 +52,8 @@ describe('PUT /api/v1/cat', function () {
       expect(this.resTest.status).toBe(404);
     });
   });
+
+  afterAll(() => {
+    return superagent.delete(':4000/api/v1/cat');
+  });
 });
