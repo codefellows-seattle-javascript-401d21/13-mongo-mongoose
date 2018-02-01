@@ -1,6 +1,7 @@
 # User Defined
 .test.env
-data/**
+data/
+mongod.lock
 
 # Logs
 logs
