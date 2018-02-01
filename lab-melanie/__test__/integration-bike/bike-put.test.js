@@ -2,6 +2,8 @@
 
 const server = require('../../lib/server.js');
 const superagent = require('superagent');
+const Bike = require('../../model/bike.js');
+
 require('jest');
 
 describe('PUT', function() {
@@ -9,6 +11,8 @@ describe('PUT', function() {
   this.mockBikeTwo = {year: '2016', color: 'orange/white', make: 'novara', category: 'road bike'};
   beforeAll(server.start);
   afterAll(server.stop);
+  afterAll(() => Promise.all([Bike.remove()]));
+
 
   describe('Valid req/res', () => {
   
@@ -24,8 +28,6 @@ describe('PUT', function() {
         .send(this.mockBikeTwo)
         .then(res => this.putOne = res);
     });
-    afterAll(() => superagent.delete(this.resOne.body._id));
-    afterAll(() => superagent.delete(this.resTwo.body._id));
     it('should return a status code 204 when complete', () => {
       expect(this.putOne.status).toBe(204);
     });
