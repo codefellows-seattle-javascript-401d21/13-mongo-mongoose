@@ -2,12 +2,16 @@
 
 const server = require('../../lib/server.js');
 const superagent = require('superagent');
+const Bike = require('../../model/bike.js');
+
 require('jest');
 
 describe('POST', function() {
   this.mockBike = {year: '2010', color: 'blue', make: 'bianchi', category: 'road bike'};
   beforeAll(server.start);
   afterAll(server.stop);
+  afterAll(() => Promise.all([Bike.remove()]));
+
 
   describe('Valid req/res', () => {
     beforeAll(() => {
@@ -15,7 +19,6 @@ describe('POST', function() {
         .send(this.mockBike)
         .then(res => this.response = res);
     });
-    afterAll(() => superagent.delete(this.response.body._id));
     it('should post a new note with make, year, and _id', () => {
       expect(this.response.body).toHaveProperty('make');
       expect(this.response.body).toHaveProperty('year');

@@ -2,6 +2,8 @@
 
 const server = require('../../lib/server.js');
 const superagent = require('superagent');
+const Bike = require('../../model/bike.js');
+
 require('jest');
 
 describe('GET', function() {
@@ -9,6 +11,7 @@ describe('GET', function() {
   this.mockBikeTwo = {year: '2016', color: 'orange/white', make: 'novara', category: 'road bike'};
   beforeAll(server.start);
   afterAll(server.stop);
+  afterAll(() => Promise.all([Bike.remove()]));
 
   describe('Valid req/res', () => {
     beforeAll(() => {
@@ -26,8 +29,6 @@ describe('GET', function() {
       return superagent.get(':4000/api/v1/bike')
         .then(res => this.getOne = res);
     });
-    afterAll(() => superagent.delete(this.resOne.body._id));
-    afterAll(() => superagent.delete(this.resTwo.body._id));
     it('should return an array of ids', () => {
       this.getOne.body.map(id => {
         expect(id).toMatch(/[0-9a-z]{24}/);
