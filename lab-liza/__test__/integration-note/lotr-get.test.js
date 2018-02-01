@@ -10,7 +10,7 @@ let port = process.env.PORT;
 let idHolder, api = `:${port}/api/v1/lotr`;
 
 describe('Server module', () => {
-  this.mockCharacter = { name: 'Gandalf', species: 'Maiar' };
+  this.mockCharacter = { name: 'Sam', species: 'Hobbit' };
   beforeAll(() => server.start(port, () => console.log(`listening on ${port}`)));
   afterAll(() => server.stop());
 

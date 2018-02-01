@@ -5,7 +5,7 @@ const superagent = require('superagent');
 require('jest');
 
 describe('POST /api/v1/lotr', function() {
-  this.mockNote = {name: 'hello', species: 'hello world'};
+  this.mockNote = {name: 'Arwen', species: 'Elf'};
 
   beforeAll(() => server.start(process.env.PORT, (err) => console.log(`Listening on ${process.env.PORT}`)));
   afterAll(() => server.stop());

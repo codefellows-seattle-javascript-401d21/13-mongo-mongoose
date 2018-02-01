@@ -10,7 +10,7 @@ let port = process.env.PORT;
 let api = `:${port}/api/v1/lotr`;
 
 describe('Route Testing', () => {
-  this.mockCharacter = { name: 'Gimli', species: 'Dwarf' };
+  this.mockCharacter = { name: 'Eowyn', species: 'Human' };
   beforeAll(() => server.start(port, () => console.log(`listening on ${port}`)));
   afterAll(() => server.stop());
 
