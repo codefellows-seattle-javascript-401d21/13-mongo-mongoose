@@ -32,8 +32,13 @@ module.exports = function(router) {
     })
     
     .delete((req, res) => {
-      Cat.findByIdAndRemove(req.params._id)
+      if (req.params._id) {
+        return Cat.findByIdAndRemove(req.params._id)
+          .then(() => res.sendStatus(204))
+          .catch(err => errorHandler(err, res)); 
+      }
+      return Cat.remove()
         .then(() => res.sendStatus(204))
-        .catch(err => errorHandler(err, res)); 
+        .catch(err => errorHandler(err, res));
     });
 };

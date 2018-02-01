@@ -24,6 +24,10 @@ describe('DELETE /api/v1/cat', function () {
       });
   });
 
+  afterAll(() => {
+    return superagent.delete(':4000/api/v1/cat');
+  });
+
   describe('Valid req/res', () => {
     it('should respond with a status of 201', () => {
       expect(this.resTwo.status).toBe(204);
@@ -47,4 +51,9 @@ describe('DELETE /api/v1/cat', function () {
         .catch(err => expect(err.status).toBe(404));
     });
   });
+
+  afterAll(() => {
+    return superagent.delete(':4000/api/v1/cat');
+  });
+  
 });
