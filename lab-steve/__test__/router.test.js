@@ -20,7 +20,7 @@ describe('Route-student module', function() {
 
   describe('Invalid GET request using fakepath', () => {
     describe('GET /fakepath', () => {
-      it('should respond with 404 status', () => {
+      it('should respond with 404 status when a /fakepath is used', () => {
         return superagent.get(`${this.ep}/fakepath`)
           .catch(err => expect(err.status).toBe(404));
       });
@@ -31,9 +31,16 @@ describe('Route-student module', function() {
     describe('GET /student', () => {
       it('should respond with 200 status', () => {
         return superagent.get(`${this.ep}/student`)
-          .then(res => {
-            expect(res.status).toBe(200);
-          });
+          .then(res => expect(res.status).toBe(200));
+      });
+    });
+  });
+
+  describe('Invalid POST request', () => {
+    describe('POST /student', () => {
+      it('should respond with a status 404 when :_id is not provided', () => {
+        return superagent.post(`${this.ep}/student`)
+          .catch(err => expect(err.status).toBe(404));
       });
     });
   });
