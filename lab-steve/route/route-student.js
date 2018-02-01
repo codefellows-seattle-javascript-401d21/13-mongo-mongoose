@@ -8,7 +8,7 @@ const debug = require('debug')('http:route-student');
 module.exports = (router) => {
   router.route('/student/:_id?')
     .get((req, res) => {
-      debug(`#module.exports: _id: ${req.params._id}`);
+      debug(`#get: _id: ${req.params._id}`);
 
       // GET call for single student
       if (req.params._id) {
@@ -18,8 +18,14 @@ module.exports = (router) => {
       }
 
       // GET call for all students
+      return Student.find({})
+        .then(studentObjs => studentObjs.map(e => e._id))
+        .then(students => res.status(200).json(students))
+        .catch(err => errorHandler(err, res));
     })
     .post(bodyParser, (req, res) => {
+      debug(`#post: req.body.full_name: ${req.body.full_name}`);
+
       new Student(req.body).save()
         .then(s => res.status(201).json(s))
         .catch(err => errorHandler(err, res));
