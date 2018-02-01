@@ -26,4 +26,15 @@ describe('Route-student module', function() {
       });
     });
   });
+
+  describe('Valid GET request', () => {
+    describe('GET /student', () => {
+      it('should respond with 200 status', () => {
+        return superagent.get(`${this.ep}/student`)
+          .then(res => {
+            expect(res.status).toBe(200);
+          });
+      });
+    });
+  });
 });
