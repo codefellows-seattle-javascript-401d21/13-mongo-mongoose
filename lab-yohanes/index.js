@@ -1,6 +1,8 @@
 'use strict'
 
-require('dotenv')
+require('dotenv').config()
 require('./lib/server').start()
 
-//work with this file a little more
+// if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+// const server = require('./lib/server');
+// server.start(process.env.PORT, () => console.log(`Listening on ${process.env.PORT}`));
