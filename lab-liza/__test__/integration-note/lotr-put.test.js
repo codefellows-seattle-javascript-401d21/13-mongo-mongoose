@@ -33,13 +33,6 @@ describe('Route Testing', () => {
       });
     });
     describe('Invalid Routes/Data', () => {
-      // it('Should respond a validation error response if a file id does not match the id sent', () => {
-      //   return superagent.put(`${api}/${this.mockCharacter._id.slice(0, -1)}9`)
-      //     .send(this.mockCharacter)
-      //     .catch(err => {
-      //       expect(err.response.text).toMatch(/Validation/);
-      //     });
-      // });
       it('Should return a status 400 if data is not sent with the put request', () => {
         return superagent.put(`${api}/${this.mockCharacter._id}`)
           .catch(err => expect(err.status).toBe(400));
