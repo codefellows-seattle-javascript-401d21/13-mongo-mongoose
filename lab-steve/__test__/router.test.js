@@ -55,11 +55,27 @@ describe('Route-student module', function() {
     });
   });
 
-  describe('Bad PUT request', () => {
+  describe('Invalid PUT request', () => {
     describe('PUT /student', () => {
       it('should respond with 404 status when no :_id is provided', () => {
         return superagent.put(`${this.ep}/student`)
           .catch(err => expect(err.status).toBe(404));
+      });
+    });
+  });
+
+  describe('Valid PUT request', () => {
+    describe('PUT /student/:_id', () => {
+      it('should respond with a status 204 following a successful PUT request', () => {
+        let id;
+        return superagent.post(`${this.ep}/student`)
+          .send({full_name: 'George', age: 44})
+          .then(res => id = res.body._id)
+          .then(() => {
+            return superagent.put(`${this.ep}/student/${id}`)
+              .send({full_name: 'Graham', age: 17})
+              .then(res => expect(res.status).toBe(204));
+          });
       });
     });
   });
