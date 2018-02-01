@@ -19,6 +19,9 @@
     "stop-db": "killall mongod"
   },
   "jest": {
+    "setupFiles": [
+      "./__test__/lib/jest-setup.js"
+    ],
     "verbose": true,
     "testEnvironment": "node",
     "collectCoverage": true,
@@ -44,6 +47,7 @@
     "debug": "^3.1.0",
     "dotenv": "^5.0.0",
     "eslint": "^4.16.0",
-    "jest": "^22.1.4"
+    "jest": "^22.1.4",
+    "superagent": "^3.8.2"
   }
 }
