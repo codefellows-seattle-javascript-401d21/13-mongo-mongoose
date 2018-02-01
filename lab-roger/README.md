@@ -1,87 +1,61 @@
 # Project Title
 
-One Paragraph of project description goes here
+Mongo Express Server
 
-## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
+To be able to use this at the user will need to install some dependencies, to do this type the following in the command line  
 Say what the step will be
 
 ```
-Give the example
+npm install
+```
+To start the server in a separate terminal tab
+```
+npm run start
+```
+To start the Mongo Database  
+```
+npm run start-db
 ```
 
-And repeat
+This is a http server, so the following commands will allow you to post a new Country to the Mongo Database, delete, get, or update.
 
 ```
-until finished
+http http://localhost:3000/api/v1/country
 ```
+Will return a list of all of the current countries.
+```
+http http://localhost:3000/api/v1/country/<record number>  
+```
+Will return that specific record
+```
+http POST http://localhost:3000/api/v1/country make=<make> model=<model> color=<color>  
+```
+Will create a new record.
+```
+http DELETE http http://localhost:3000/api/v1/country/<record number>
+```
+Will delete that record.
+```
+http PUT http http://localhost:3000/api/v1/country/<record number> color=<new color> model=<new model> make=<new make>
+```
+Will amend a record.
 
-End with an example of getting some data out of the system or using it for a little demo
+
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+```npm test```
 
-### Break down into end to end tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Roger Davenport** - RND -
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+This project is licensed under the MIT License
