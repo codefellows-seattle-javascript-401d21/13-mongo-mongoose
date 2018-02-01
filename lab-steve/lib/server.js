@@ -43,7 +43,7 @@ server.stop = () => {
 
     server.http.close(() => {
       console.log('Shutting down server');
-      server.db.disconnect();
+      mongoose.disconnect();
       server.isOn = false;
       return resolve(server);
     });
