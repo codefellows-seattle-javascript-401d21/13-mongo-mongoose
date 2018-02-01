@@ -7,40 +7,32 @@ require('jest');
 
 // Test Variables
 let port = process.env.PORT;
-let tempPost, api = `:${port}/api/v1/country`;
+let api = `:${port}/api/v1/country`;
 
-describe('Server module', () => {
-  this.mockTest = { name: 'canada'};
+describe('Post Routes', () => {
+  this.mockTest = { name: 'canada', continent: 'North America'};
   beforeAll(() => server.start());
   afterAll(() => server.stop());
 
-  describe('GET /api/v1/country', () => {
-    beforeAll(() => {
-      return superagent.post(api)
-        .send(this.mockTest)
-        .then(res => tempPost = res.body._id);
+  describe('POST /api/v1/country', () => {
 
-    });
     describe('Valid Routes/Data', () => {
       beforeAll(() => {
-        return superagent.get(api)
+        return superagent.post(api)
+          .send(this.mockTest)
           .then(res => this.response = res);
       });
-      it('Should respond with a status 200', () => {
-        expect(this.response.status).toBe(200);
+      it('Should respond with a status 201', () => {
+        expect(this.response.status).toBe(201);
       });
-      it('Should respond with all notes', () => {
-        expect(this.response.body).toBeTruthy();
-      });
-      it('Should respond with a single note', () => {
-        return superagent.get(`${api}/${tempPost}`)
-          .then(res => expect(res.body.name).toBe('canada'));
+      it('Should return the created record', () => {
+        expect(this.response.body).toBeInstanceOf(Object);
       });
     });
 
     describe('Invalid Routes ', () => {
       it('Should respond a not found or path error when given an incorrect path', () => {
-        return superagent.get(`:${port}/api/v1/coun`)
+        return superagent.post(`:${port}/api/v1/coun`)
           .catch(err => {
             expect(err.response.text).toMatch(/PATH/i);
           });

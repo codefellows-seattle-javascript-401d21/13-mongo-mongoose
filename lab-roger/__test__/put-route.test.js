@@ -7,40 +7,46 @@ require('jest');
 
 // Test Variables
 let port = process.env.PORT;
-let tempPost, api = `:${port}/api/v1/country`;
+let api = `:${port}/api/v1/country`;
+let tempPost;
+let ammend = { name: 'Camaroon', continent: 'Africa'};
 
-describe('Server module', () => {
-  this.mockTest = { name: 'canada'};
+describe('PUT Routes', () => {
+  this.mockTest = { name: 'Nigeria', continent: 'Africa'};
   beforeAll(() => server.start());
   afterAll(() => server.stop());
 
-  describe('GET /api/v1/country', () => {
-    beforeAll(() => {
-      return superagent.post(api)
-        .send(this.mockTest)
-        .then(res => tempPost = res.body._id);
+  describe('PUT /api/v1/country', () => {
 
-    });
     describe('Valid Routes/Data', () => {
       beforeAll(() => {
-        return superagent.get(api)
-          .then(res => this.response = res);
+        return superagent.post(api)
+          .send(this.mockTest)
+          .then(res => tempPost = res);
       });
-      it('Should respond with a status 200', () => {
-        expect(this.response.status).toBe(200);
+
+
+      it('Should respond with a status 202', () => {
+        return superagent.put(`${api}/${tempPost.body._id}`)
+          .send(ammend)
+          .then(res => {
+            expect(res.status).toBe(202);
+          });
       });
-      it('Should respond with all notes', () => {
-        expect(this.response.body).toBeTruthy();
+      it('should check that the record was ammended', () => {
+        return superagent.get(`${api}/${tempPost.body._id}`)
+          .then(res => {
+            expect(res.body.name).toBe('Camaroon');
+          });
       });
-      it('Should respond with a single note', () => {
-        return superagent.get(`${api}/${tempPost}`)
-          .then(res => expect(res.body.name).toBe('canada'));
-      });
+
+
+
     });
 
     describe('Invalid Routes ', () => {
       it('Should respond a not found or path error when given an incorrect path', () => {
-        return superagent.get(`:${port}/api/v1/coun`)
+        return superagent.post(`:${port}/api/v1/coun`)
           .catch(err => {
             expect(err.response.text).toMatch(/PATH/i);
           });

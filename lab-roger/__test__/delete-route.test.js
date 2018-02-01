@@ -21,7 +21,7 @@ describe('Route Testing', () => {
         .then(res => this.response = res);
     });
     describe('DELETE /api/v1/note', () => {
-      it('Should respond with a status 200', () => {
+      it('Should respond with a status 204', () => {
         return superagent.del(`${api}/${this.response.body._id}`)
           .then(res => {
             expect(res.status).toBe(204);
