@@ -25,13 +25,13 @@ module.exports = function(router) {
     })
     .put(bodyParser, (req, res) => {
       return Bike.findOneAndUpdate(req.params._id, req.body)
-        .then(bike => res.sendStatus(204))
+        .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
 
     })
     .delete((req, res) => {
       return Bike.findByIdAndRemove(req.params._id)
-        .then(bike => res.sendStatus(204))
+        .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
 
     });
