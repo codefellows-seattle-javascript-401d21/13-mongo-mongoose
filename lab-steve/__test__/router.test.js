@@ -44,4 +44,14 @@ describe('Route-student module', function() {
       });
     });
   });
+
+  describe('Valid POST request, ', () => {
+    describe('POST /student/:_id', () => {
+      it('should respond with 201 status', () => {
+        return superagent.post(`${this.ep}/student/`)
+          .send({full_name: 'Steve', age: 30})
+          .then(res => expect(res.status).toBe(201));
+      });
+    });
+  });
 });
