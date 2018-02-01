@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 
 const Animal = mongoose.Schema({
-    'name': { type: String, require: true },
+    'name': { type: String, required: true },
     'legs': { type: Number},
     'class': { type: String}
 })
