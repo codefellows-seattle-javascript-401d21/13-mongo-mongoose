@@ -79,4 +79,13 @@ describe('Route-student module', function() {
       });
     });
   });
+
+  describe('Invalid DELETE request', () => {
+    describe('DELETE /student', () => {
+      it('should respond with a status 404 when given a delete request without an :_id in the URL', () => {
+        return superagent.delete(`${this.ep}/student`)
+          .catch(err => expect(err.status).toBe(404));
+      });
+    });
+  });
 });
