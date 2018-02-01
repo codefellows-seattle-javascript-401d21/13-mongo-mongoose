@@ -5,15 +5,17 @@ const bodyParser = require('body-parser').json()
 const errorHandler = require('../lib/error-handler')
 
 module.exports = function (router) {
-  router.route('/track/:_id?').get((req, res) => { //same thing as routter.get() and router.post()
+  router.route('/track/:_id?')
+  .get((req, res) => { //same thing as routter.get() and router.post()
 
     if (req.params._id) {
       return Track.findById(req.params._id)
         .then(track => res.status(200).json(track)) //'track' is just calling back to avoid linter. then stringifying the tracked data from database
         .catch(err => errorHandler(err, res))
-    } else if (!req.params._id) {
-      return Track.find(schema) //return all
-    }
+     }
+    //else if (!req.params._id) {
+    //   return Track.find(schema) //return all
+    // }
     //other wise if no ID...
 
   })
