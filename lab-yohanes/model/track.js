@@ -20,8 +20,8 @@ const Track = mongoose.Schema({
   'instrumentalness': { type: Number },
   'mode': { type: Number },
   'number': { type: Number },
-  'artist': { type: String, require: true },
-  'title': { type: String, require: true },
+  'artist': { type: String, require: true }, //our new  content=""
+  'title': { type: String, require: true }, //our new title=""
 }, { timestamps: true })
 
 module.exports = mongoose.model('tracks', Track)

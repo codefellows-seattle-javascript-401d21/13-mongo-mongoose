@@ -14,7 +14,7 @@ const MONGODB_URI = process.env.MONGODB_URI
 
 // Middleware
 app.use(cors())
-app.use('/api/v1', router)
+app.use('/api/v1', router) //important for GET POST PUT DELETE
 require('../route/route-track')(router)
 app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not found.'), res))
 
