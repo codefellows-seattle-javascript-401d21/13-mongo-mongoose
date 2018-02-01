@@ -14,8 +14,8 @@ const PORT = process.env.PORT;
 //console.log(PORT);
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
+mongoose.connect(MONGODB_URI)
 //console.log(MONGODB_URI);
-const mongoConnection = mongoose.connect(MONGODB_URI)
 
 // Middleware
 app.use(cors());
@@ -25,7 +25,7 @@ app.use('/{0,}', (req, res) => {
 
   debug('here is path error in server.js');
 
-  eH(new Error('Path error.'), res)
+  eH(new Error('Path error.'), res);
 });
 
 // Server Controls
@@ -43,7 +43,7 @@ server.start = () => {
       return resolve(server);
     });
   });
-}
+};
 
 server.stop = () => {
   return new Promise((resolve, reject) => {
@@ -58,4 +58,4 @@ server.stop = () => {
       return resolve(server);
     });
   });
-}
+};

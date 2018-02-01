@@ -72,4 +72,4 @@ describe('Error handler module', function() {
     });
 
   });
-})
+});

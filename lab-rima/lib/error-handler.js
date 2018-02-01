@@ -3,7 +3,7 @@
 const debug = require('debug')('http:error-handler');
 
 module.exports = function(err, res){
-console.log('err', err);
+//console.log('err', err);
   debug('Inside of error handler');
 
   let msg = err.message.toLowerCase();

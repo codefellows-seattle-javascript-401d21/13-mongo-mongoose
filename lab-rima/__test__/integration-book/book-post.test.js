@@ -20,7 +20,7 @@ describe('POST /api/v1/book', () => {
     beforeAll(() => {
       return superagent.post(`:${process.env.PORT}/api/v1/book`)
         .send({title: 'Test', author: 'Testing'})
-        .then(res => resOne = res)
+        .then(res => resOne = res);
     });
 
     test(
@@ -33,8 +33,8 @@ describe('POST /api/v1/book', () => {
     test(
       'should respond with http res status 201',
       () => {
-       expect(resOne.status).toBe(201);
-     });
+        expect(resOne.status).toBe(201);
+      });
 
     test(
       'should have an _id property on the response object',
@@ -46,21 +46,13 @@ describe('POST /api/v1/book', () => {
   describe('Invalid req/res', () => {
 
     test(
-      'should return 400 if no title passed',
+      'should not accept invalid input',
       () => {
         superagent.post(`:${process.env.PORT}/api/v1/book`)
+          .ok(res => res.status < 500)
           .send({author: 'au'})
-          .ok(res => res.status < 500)
-          .catch(err => expect(err.status).toEqual(400));
-    });
+          .catch(err => expect(err.status).not.toBe(201));
+      });
 
-    test(
-      'should return 400 if no author passed',
-      () => {
-        superagent.post(`:${process.env.PORT}/api/v1/book`)
-          .send({title: 'ti'})
-          .ok(res => res.status < 500)
-          .catch(err => {console.log(err);expect(err.status).toEqual(400)});
-    });
   });
 });
