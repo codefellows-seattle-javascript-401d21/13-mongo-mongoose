@@ -60,7 +60,7 @@ describe('PUT /api/v1/animal', function() {
           expect(err.response.text).toMatch(/path error/i);
         });
     });
-    it('should return a status 400 on an id that does not exist', () => {
+    it('should return a status 404 on an id that does not exist', () => {
       return superagent.put(`:${process.env.PORT}/api/v1/animal/1234`)
         .send(this.mockUpdate)
         .catch(err => expect(err.status).toBe(404));
