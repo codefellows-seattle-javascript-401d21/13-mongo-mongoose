@@ -23,13 +23,28 @@ app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not fou
 const server = module.exports = {};
 server.start = () => {
   return new Promise((resolve, reject) => {
-    if (server.isOn) return reject(new Error('Error: Server running. Cannot start again.'));
+    if (server.isOn) return reject(new Error('Server running. Cannot start again.'));
     debug('#server.start: Starting Server');
 
     server.http = app.listen(PORT, () => {
       console.log(`Listening on PORT ${PORT}`);
       server.isOn = true;
+      debug(`MONGODB_URI: ${MONGODB_URI}`);
       server.db = mongoose.connect(MONGODB_URI);
+      return resolve(server);
+    });
+  });
+};
+
+server.stop = () => {
+  return new Promise((resolve, reject) => {
+    if (!server.isOn) return reject(new Error('Server is not running. Cannot shut down.'));
+    debug('#server.stope: Stopping Server');
+
+    server.http.close(() => {
+      console.log('Shutting down server');
+      server.db.disconnect();
+      server.isOn = false;
       return resolve(server);
     });
   });
