@@ -55,7 +55,7 @@ describe('PUT /', () => {
   });
 
   describe('Invalid input', () => {
-    let postTwo, putTwo, getTwo;
+    let postTwo;
 
     // post an existing book to use it in test
     beforeAll(() => {
@@ -66,8 +66,7 @@ describe('PUT /', () => {
 
     // get an existing book to use it in test
     beforeAll(() => {
-      return superagent.get(`:${process.env.PORT}/api/v1/book/${postTwo.body._id}`)
-        .then(res => { getTwo = res; });
+      return superagent.get(`:${process.env.PORT}/api/v1/book/${postTwo.body._id}`);
     });
     
     // delete all data

@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 //console.log(PORT);
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI)
+mongoose.connect(MONGODB_URI);
 //console.log(MONGODB_URI);
 
 // Middleware

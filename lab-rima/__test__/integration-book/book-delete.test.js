@@ -4,7 +4,7 @@ const path = require('path');
 require('dotenv').config({path: path.resolve(process.cwd(), '__test__/.test.env')});
 const server = require('../../lib/server');
 const superagent = require('superagent');
-const route = require('../../route/route-book');
+//const route = require('../../route/route-book');
 
 
 describe('DELETE', () => {
@@ -60,13 +60,13 @@ describe('DELETE', () => {
           expect(getTwo.status).toBe(200);
           expect(getTwo.body.title).toEqual('Test2');
           expect(getTwo.body.author).toEqual('Testing2');
-      });
+        });
 
       test(
         'should return http status 204',
         () => {
           expect(deleteOne.status).toBe(204);
-      });
+        });
     });
 
     describe('Invalid input', () => {
@@ -77,8 +77,8 @@ describe('DELETE', () => {
             .ok(res => res.status < 500)
             .catch(err => {
               expect(err.status).toBe(404);
-          });
-      });
+            });
+        });
     });
 
   });
@@ -118,7 +118,7 @@ describe('DELETE', () => {
         'should return http status 200',
         () => {
           expect(deleteAll.status).toBe(200);
-      });
+        });
 
     });
   });
