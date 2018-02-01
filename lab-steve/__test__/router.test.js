@@ -88,4 +88,19 @@ describe('Route-student module', function() {
       });
     });
   });
+
+  describe('Valid DELETE Request', () => {
+    describe('DELETE /student/:_id', () => {
+      it('should respond with a status 204 on a successful deletion', () => {
+        let id;
+        return superagent.post(`${this.ep}/student`)
+          .send({full_name: 'Joe', age: 4})
+          .then(res => id = res.body._id)
+          .then(() => {
+            return superagent.delete(`${this.ep}/student/${id}`)
+              .then(res => expect(res.status).toBe(204));
+          });
+      });
+    });
+  });
 });
