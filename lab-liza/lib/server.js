@@ -11,6 +11,7 @@ const app = express();
 const PORT = process.env.PORT;
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
+const mongoConnection = mongoose.connect(MONGODB_URI);
 
 // Middleware
 app.use(cors());
@@ -27,7 +28,6 @@ server.start = () => {
     server.http = app.listen(PORT, () => {
       console.log(`Listening on ${PORT}`);
       server.isOn = true;
-      server.db = mongoose.connect(MONGODB_URI);
       return resolve(server);
     });
   });
@@ -39,7 +39,7 @@ server.stop = () => {
 
     server.http.close(() => {
       console.log('Shutting down server');
-      server.db.disconnect();
+      mongoose.disconnect();
       server.isOn = false;
       return resolve(server);
     });
