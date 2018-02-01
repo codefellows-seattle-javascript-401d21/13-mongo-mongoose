@@ -24,7 +24,7 @@ module.exports = function(router) {
     })
 
     .post(bodyParser, (req, res) => {
-      new Mc(req.body).save()
+      return new Mc(req.body).save()
         .then(mc => res.status(201).json(mc)) 
         .catch(err => errorHandler(err, res))
     })
