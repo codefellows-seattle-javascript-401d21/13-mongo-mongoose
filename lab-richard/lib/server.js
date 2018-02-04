@@ -38,7 +38,8 @@ server.stop = () => {
         if(!server.isOn) return reject(new Error('Server not running. Cannot shut server down'))
         server.http.close(() => {
             console.log('Shutting down server.');
-            server.db.disconnect();
+            // server.db.disconnect();
+            mongoose.disconnect();
             server.isOn = false;
             return resolve(server);
         });

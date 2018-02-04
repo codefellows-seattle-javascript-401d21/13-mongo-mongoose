@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 const debug = require('debug')('http:something');
 
 const something = mongoose.Schema({
-    'stuff': { stuff: String, required: true },
-    'thing': { thing: String, required: true },
-    'that': { that: String, required: true },
-    'digit': { digit: Number }
+    'one': { type: String, required: true },
+    'two': { type: String, required: true },
+    'three': { type: String, required: true },
+    'digit': { type: Number, required: true }
 }, {timestamps: true });
 debug(`${something}`);
 

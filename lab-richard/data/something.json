@@ -1,26 +1,26 @@
 [
     {
-        "stuff": "Korean",
-        "thing": "Freeze",
-        "that": "Ray!",
+        "one": "Korean",
+        "two": "FREEZE",
+        "three": "Ray!",
         "digit": 10
     },
     {
-        "stuff": "Alice",
-        "thing": "in",
-        "that": "Chains",
+        "one": "Alice",
+        "two": "in",
+        "three": "Chains",
         "digit": 30
     },
     {
-        "stuff": "League",
-        "thing": "of",
-        "that": "Legends",
+        "one": "League",
+        "two": "of",
+        "three": "Legends",
         "digit": 50
     },
     {
-        "stuff": "Derba",
-        "thing": "Kerta",
-        "that": "Panda",
+        "one": "Derba",
+        "two": "Kerta",
+        "three": "Panda",
         "digit": 100
     }
 ]

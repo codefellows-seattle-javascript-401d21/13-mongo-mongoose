@@ -2,13 +2,50 @@
 
 const server = require('../../lib/server');
 const superagent = require('superagent');
+const something = require('../../model/something');
 require('jest');
 
-describe('POST/api/v1/note', () => {
-    beforeAll(() => server.start(process.env.PORT, () => console.log(`Listening on ${process.env.PORT}`)));
+describe('POST /api/v1/note', function() {
+    this.mockNote = {stuff: 'hello', thing: 'hello world', that: '!', digit: 10};
+    neforeAll(() => this.mockNote = {}
+    beforeAll(() => server.start(process.env.PORT, (err) => console.log(`Listening on ${process.env.PORT}`)));
     afterAll(() => server.stop());
+    afterAll(() => Promise.all({something.remove()}));
 
-    describe('testing dummy', function() {
-        it('should return true', () => expect(true).toBeTruthy());
+    describe('Valid req/res', () => {
+        beforeAll(() => {
+            return superagent.post(':4000/api/v1/note')
+                .send(this.mockNote)
+                .then(res => this.response = res);
+        });
+
+        it('should respond with a status of 201', () => {
+            expect(this.response.status).toBe(201);
+        });
+        it('should post a new note with title, content, and _id', () => {
+            expect(this.response.body).toHaveProperty('title');
+            expect(this.response.body).toHaveProperty('content');
+            expect(this.response.body).toHaveProperty('_id');
+        });
+        it('should respond with a title of "hello" and content of "hello world"', () => {
+            expect(this.response.body.title).toEqual(this.mockNote.title);
+            expect(this.response.body.content).toEqual(this.mockNote.content);
+        });
+    });
+
+    describe('Invalid req/res', () => {
+        it('should return a status 404 on bad path', () => {
+            return superagent.post(':4000/api/v1/doesNotExist')
+                .send(this.mockNote)
+                .catch(err => {
+                    expect(err.status).toBe(404);
+                    expect(err.response.text).toMatch(/path error/i);
+                });
+        });
+        it('should return a status 400 on bad request body', () => {
+            return superagent.post(':4000/api/v1/note')
+                .send({})
+                .catch(err => expect(err.status).toBe(400));
+        });
     });
 });
